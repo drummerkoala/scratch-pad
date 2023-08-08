@@ -164,4 +164,48 @@ public class ScratchpadServiceImpl implements ScratchpadService {
 
         return palindromeFlag;
     }
+
+    @Override
+    public String zigzagConversion(String s, int numRows) {
+        if (numRows == 1 || s.length() <= numRows || s.length() == 0)
+            return s;
+
+        String[] resultList = new String[numRows];
+        Arrays.fill(resultList, "");
+
+        int maxRowIndex = numRows - 1;
+        int bounceCount;
+
+        for (int i = 0; i < s.length(); i++) {
+            bounceCount = i / maxRowIndex;
+            if (bounceCount % 2 == 0)
+                resultList[i - maxRowIndex * bounceCount] += s.charAt(i);
+            else {
+                resultList[maxRowIndex - (i - maxRowIndex * bounceCount)] += s.charAt(i);
+            }
+        }
+
+        StringBuilder result = new StringBuilder();
+        for (String stringRow : resultList)
+            result.append(stringRow);
+
+        return result.toString();
+    }
+
+    public int reverseInteger(int x) {
+        int reversedInt = 0;
+        int lastDigit;
+
+        while (x != 0) {
+            lastDigit = x % 10;
+            x = x / 10;
+            if (Integer.MAX_VALUE/10 < reversedInt || (Integer.MAX_VALUE/10 == reversedInt && lastDigit > 7))
+                return 0;
+            if (Integer.MIN_VALUE/10 > reversedInt || (Integer.MIN_VALUE/10 == reversedInt && lastDigit < -8))
+                return 0;
+            reversedInt = reversedInt * 10 + lastDigit;
+        }
+
+        return reversedInt;
+    }
 }

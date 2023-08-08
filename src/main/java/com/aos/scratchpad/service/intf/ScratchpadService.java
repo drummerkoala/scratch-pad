@@ -17,4 +17,8 @@ public interface ScratchpadService {
     double findMedianSortedArrays(int[] nums1, int[] nums2);
 
     String longestPalindrome(String s);
+
+    String zigzagConversion(String s, int numRows);
+
+    int reverseInteger(int x);
 }

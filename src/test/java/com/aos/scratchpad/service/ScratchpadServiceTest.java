@@ -3,12 +3,9 @@ package com.aos.scratchpad.service;
 import com.aos.scratchpad.service.impl.ScratchpadServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -55,6 +52,22 @@ class ScratchpadServiceTest {
     void givenValidInput_whenLongestPalindrome_thenReturn(String input, String expected) {
         // then
         String result = scratchpadService.longestPalindrome(input);
+        assertEquals(expected, result);
+    }
+
+    @ParameterizedTest
+    @MethodSource("com.aos.scratchpad.util.TestHelper#zigzagConversionArgumentProvider")
+    void givenValidInput_whenZigZagConversion_thenReturn(String s, int numRows, String expected) {
+        // then
+        String result = scratchpadService.zigzagConversion(s, numRows);
+        assertEquals(expected, result);
+    }
+
+    @ParameterizedTest
+    @MethodSource("com.aos.scratchpad.util.TestHelper#reverseIntegerArgumentProvider")
+    void givenValidInput_whenReversedInteger_thenReturn(int x, int expected) {
+        // then
+        int result = scratchpadService.reverseInteger(x);
         assertEquals(expected, result);
     }
 
