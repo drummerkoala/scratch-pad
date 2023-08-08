@@ -81,7 +81,8 @@ public class ScratchpadServiceImpl implements ScratchpadService {
     @Override
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         List<Integer> sortedCombinedArray = new ArrayList<>();
-        int firstIndex = 0, secIndex = 0;
+        int firstIndex = 0;
+        int secIndex = 0;
 
         while (firstIndex <= nums1.length && secIndex <= nums2.length) {
             if (firstIndex == nums1.length) {
@@ -126,6 +127,41 @@ public class ScratchpadServiceImpl implements ScratchpadService {
 
     @Override
     public String longestPalindrome(String s) {
-        return "";
+        if (s.length() == 1 || s.length() == 0)
+            return s;
+        String result = "";
+        for (int i = 0; i < s.length(); i++) {
+
+            if (s.length() - i <= result.length())
+                break;
+
+            for (int j = s.length() - 1; j >= i; j--) {
+                if (result.length() != 0  && j - i < result.length())
+                    break;
+                else if (s.charAt(i) == s.charAt(j) &&
+                        (Boolean.TRUE.equals(longestPalindromeHelper(s.substring(i, j + 1), j - i + 1)))) {
+                        result = s.substring(i, j + 1);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    private boolean longestPalindromeHelper(String s, int endIndex) {
+        int firstIndex = 0;
+        int secIndex = endIndex - 1;
+        boolean palindromeFlag = true;
+
+        while (firstIndex < secIndex) {
+            if (s.charAt(firstIndex) != s.charAt(secIndex)) {
+                palindromeFlag = false;
+                break;
+            }
+            firstIndex++;
+            secIndex--;
+        }
+
+        return palindromeFlag;
     }
 }

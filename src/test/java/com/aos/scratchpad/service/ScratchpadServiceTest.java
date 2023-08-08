@@ -2,17 +2,19 @@ package com.aos.scratchpad.service;
 
 import com.aos.scratchpad.service.impl.ScratchpadServiceImpl;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @SpringBootTest
-public class ScratchpadServiceTest {
+class ScratchpadServiceTest {
     @InjectMocks
     ScratchpadServiceImpl scratchpadService;
 
@@ -47,4 +49,14 @@ public class ScratchpadServiceTest {
         double result = scratchpadService.findMedianSortedArrays(nums1, nums2);
         assertEquals(2.5, result);
     }
+
+    @ParameterizedTest
+    @MethodSource("com.aos.scratchpad.util.TestHelper#longestPalindromeArgumentProvider")
+    void givenValidInput_whenLongestPalindrome_thenReturn(String input, String expected) {
+        // then
+        String result = scratchpadService.longestPalindrome(input);
+        assertEquals(expected, result);
+    }
+
+
 }
