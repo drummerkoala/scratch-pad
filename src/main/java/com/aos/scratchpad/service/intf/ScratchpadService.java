@@ -21,4 +21,8 @@ public interface ScratchpadService {
     String zigzagConversion(String s, int numRows);
 
     int reverseInteger(int x);
+
+    int stringToInteger(String s);
+
+    boolean isPalindrome(int x);
 }

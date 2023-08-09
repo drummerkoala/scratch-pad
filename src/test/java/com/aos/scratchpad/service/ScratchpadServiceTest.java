@@ -71,5 +71,21 @@ class ScratchpadServiceTest {
         assertEquals(expected, result);
     }
 
+    @ParameterizedTest
+    @MethodSource("com.aos.scratchpad.util.TestHelper#stringToIntegerArgumentProvider")
+    void givenValidInput_whenStringToInteger_thenReturn(String s, int expected) {
+        // then
+        int result = scratchpadService.stringToInteger(s);
+        assertEquals(expected, result);
+    }
+
+    @ParameterizedTest
+    @MethodSource("com.aos.scratchpad.util.TestHelper#isPalindromeArgumentProvider")
+    void givenValidInput_whenIsPalindrome_thenReturn(int x, boolean expected) {
+        // then
+        boolean result = scratchpadService.isPalindrome(x);
+        assertEquals(expected, result);
+    }
+
 
 }

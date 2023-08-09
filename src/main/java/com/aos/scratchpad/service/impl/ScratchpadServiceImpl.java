@@ -208,4 +208,55 @@ public class ScratchpadServiceImpl implements ScratchpadService {
 
         return reversedInt;
     }
+
+    public int stringToInteger(String s) {
+        if (s == null || s.length() == 0)
+            return 0;
+        String trimmedString = s.trim();
+        StringBuilder resultStringBuilder = new StringBuilder();
+        String resultString;
+        int sign = 1;
+        boolean ifFirstDigitArrived = false;
+        boolean ifSignIsDecided = false;
+
+        long result;
+
+        int index = 0;
+
+        while (index < trimmedString.length()) {
+            if (!ifSignIsDecided && (trimmedString.charAt(index) == '+' || trimmedString.charAt(index) == '-')) {
+                sign = trimmedString.charAt(index) == '+' ? 1 : -1;
+                ifSignIsDecided = true;
+            }
+            else if (Character.isDigit(trimmedString.charAt(index))) {
+                resultStringBuilder.append(trimmedString.charAt(index));
+                ifFirstDigitArrived = true;
+                ifSignIsDecided = true;
+            }
+            else if ((!ifFirstDigitArrived) && !Character.isDigit(trimmedString.charAt(index)))
+                return 0;
+            else if (ifFirstDigitArrived)
+                break;
+            index++;
+        }
+        resultString = resultStringBuilder.toString().replaceFirst("^0+(?!$)", "");
+        if (resultString.equals(""))
+            return 0;
+        if (resultString.length() > 10)
+            return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+
+        result = Long.parseLong(resultString) * sign;
+
+        if (sign == 1 && result > Integer.MAX_VALUE)
+            return Integer.MAX_VALUE;
+        else if (sign == -1 && result < Integer.MIN_VALUE)
+            return Integer.MIN_VALUE;
+        else
+            return (int) result;
+    }
+    @Override
+    public boolean isPalindrome(int x) {
+        StringBuilder reversedInt = new StringBuilder(String.valueOf(x)).reverse();
+        return reversedInt.toString().equals(String.valueOf(x));
+    }
 }
