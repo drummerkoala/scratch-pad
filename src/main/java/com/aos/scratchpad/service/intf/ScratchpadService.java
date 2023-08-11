@@ -25,4 +25,14 @@ public interface ScratchpadService {
     int stringToInteger(String s);
 
     boolean isPalindrome(int x);
+
+    boolean isRegex(String s, String p);
+
+    int maxArea(int[] height);
+
+    String intToRoman(int num);
+
+    int romanToInt(String s);
+
+    String longestCommonPrefix(String[] strs);
 }

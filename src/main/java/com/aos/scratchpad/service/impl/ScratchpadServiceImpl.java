@@ -259,4 +259,96 @@ public class ScratchpadServiceImpl implements ScratchpadService {
         StringBuilder reversedInt = new StringBuilder(String.valueOf(x)).reverse();
         return reversedInt.toString().equals(String.valueOf(x));
     }
+
+    @Override
+    public boolean isRegex(String s, String p) {
+        // TODO: finish this
+        if (s.equals(p))
+            return true;
+        boolean ifRegexCheckApplied = false;
+        String[] regexList = p.split("\\*");
+
+        for (int i = 0; i < regexList.length; i++) {
+            if (s.length() != 0) {
+                if (regexList[i].equals(".")) {
+                    if (i + 1 != regexList.length) {
+                        while (s.length() != 0 && !s.startsWith(regexList[i + 1])) {
+                            s = s.substring(1);
+                        }
+                    }
+                    continue;
+                }
+                if (s.charAt(0) == '.') {
+                    s = s.replaceFirst("\\.\\*", "");
+                    continue;
+                }
+                else {
+                    while (s.startsWith(regexList[i])) {
+                        s = s.replaceFirst(regexList[i],"");
+                        ifRegexCheckApplied = true;
+                    }
+                    if (s.charAt(0) == '*')
+                        s = s.replaceFirst("\\*", "");
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int maxArea(int[] height) {
+        int leftLine = 0;
+        int rightLine = height.length - 1;
+        int maxAmnt = 0;
+
+        while (leftLine < rightLine) {
+            maxAmnt = Math.max((rightLine - leftLine) * Math.min(height[leftLine], height[rightLine]), maxAmnt);
+            if (height[leftLine] < height[rightLine])
+                leftLine++;
+            else
+                rightLine--;
+        }
+
+        return maxAmnt;
+    }
+
+    @Override
+    public String intToRoman(int num) {
+        /*I 1 V 5 X 10 L 50 C 100 D 500 M 1000*/
+        int[] intList = new int[] {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] romanList = new String[] {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < intList.length; i++) {
+            while (num >= intList[i]) {
+                num = num - intList[i];
+                result.append(romanList[i]);
+            }
+        }
+
+        return result.toString();
+    }
+
+    @Override
+    public int romanToInt(String s) {
+        Map<Character, Integer> romanConversionMap = new HashMap<>();
+        romanConversionMap.put('I', 1);romanConversionMap.put('V', 5);romanConversionMap.put('X', 10);romanConversionMap.put('L', 50);romanConversionMap.put('C', 100);romanConversionMap.put('D', 500);romanConversionMap.put('M', 1000);
+
+        int result = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (i != s.length() - 1 && romanConversionMap.get(s.charAt(i)) < romanConversionMap.get(s.charAt(i + 1))) {
+                result = result - romanConversionMap.get(s.charAt(i));
+            }
+            else {
+                result = result + romanConversionMap.get(s.charAt(i));
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public String longestCommonPrefix(String[] strs) {
+        return "";
+    }
 }

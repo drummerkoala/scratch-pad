@@ -65,5 +65,38 @@ public class TestHelper {
         );
     }
 
+    static Stream<Arguments> isRegexArgumentProvider() {
+        return Stream.of(
+                Arguments.of("aa", "a*", true),
+                Arguments.of("aa", "a", false)
+        );
+    }
+
+    static Stream<Arguments> maxAreaArgumentProvider() {
+        return Stream.of(
+                Arguments.of(new int[] {1, 8, 6, 2, 5, 4, 8, 3, 7}, 49),
+                Arguments.of(new int[] {4,4}, 4),
+                Arguments.of(new int[] {4,1,3,4}, 12),
+                Arguments.of(new int[] {4,3,9,1}, 8)
+        );
+    }
+
+    static Stream<Arguments> intToRomanArgumentProvider() {
+        return Stream.of(
+                Arguments.of(3, "III"),
+                Arguments.of(1994, "MCMXCIV"),
+                Arguments.of(3999, "MMMCMXCIX")
+        );
+    }
+
+    static Stream<Arguments> romanToIntArgumentProvider() {
+        return Stream.of(
+                Arguments.of("III", 3),
+                Arguments.of("MCMXCIV", 1994),
+                Arguments.of("MMMCMXCIX", 3999),
+                Arguments.of("LVIII", 58)
+        );
+    }
+
 
 }

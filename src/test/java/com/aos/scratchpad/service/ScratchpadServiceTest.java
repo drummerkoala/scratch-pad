@@ -87,5 +87,35 @@ class ScratchpadServiceTest {
         assertEquals(expected, result);
     }
 
+    @ParameterizedTest
+    @MethodSource("com.aos.scratchpad.util.TestHelper#isRegexArgumentProvider")
+    void givenValidInput_whenIsRegex_thenReturn(String s, String p, boolean expected) {
+        // then
+        boolean result = scratchpadService.isRegex(s, p);
+        assertEquals(expected, result);
+    }
 
+    @ParameterizedTest
+    @MethodSource("com.aos.scratchpad.util.TestHelper#maxAreaArgumentProvider")
+    void givenValidInput_whenMaxArea_thenReturn(int[] height, int expected) {
+        // then
+        int result = scratchpadService.maxArea(height);
+        assertEquals(expected, result);
+    }
+
+    @ParameterizedTest
+    @MethodSource("com.aos.scratchpad.util.TestHelper#intToRomanArgumentProvider")
+    void givenValidInput_whenIntegerToRoman_thenReturn(int num, String expected) {
+        // then
+        String result = scratchpadService.intToRoman(num);
+        assertEquals(expected, result);
+    }
+
+    @ParameterizedTest
+    @MethodSource("com.aos.scratchpad.util.TestHelper#romanToIntArgumentProvider")
+    void givenValidInput_whenRomanToInteger_thenReturn(String num, int   expected) {
+        // then
+        int result = scratchpadService.romanToInt(num);
+        assertEquals(expected, result);
+    }
 }
